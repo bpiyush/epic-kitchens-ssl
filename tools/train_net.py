@@ -58,9 +58,11 @@ def train_epoch(train_loader, model, optimizer, train_meter, cur_epoch, cfg):
         for key, val in meta.items():
             if isinstance(val, (list,)):
                 for i in range(len(val)):
-                    val[i] = val[i].cuda(non_blocking=True)
+                    if not isinstance(val[i], str):
+                        val[i] = val[i].cuda(non_blocking=True)
             else:
-                meta[key] = val.cuda(non_blocking=True)
+                if not isinstance(val, str):
+                    meta[key] = val.cuda(non_blocking=True)
 
         # Update the learning rate.
         lr = optim.get_epoch_lr(cur_epoch + float(cur_iter) / data_size, cfg)
@@ -230,9 +232,11 @@ def eval_epoch(val_loader, model, val_meter, cur_epoch, cfg):
         for key, val in meta.items():
             if isinstance(val, (list,)):
                 for i in range(len(val)):
-                    val[i] = val[i].cuda(non_blocking=True)
+                    if not isinstance(val[i], str):
+                        val[i] = val[i].cuda(non_blocking=True)
             else:
-                meta[key] = val.cuda(non_blocking=True)
+                if not isinstance(val, str):
+                    meta[key] = val.cuda(non_blocking=True)
 
         if cfg.DETECTION.ENABLE:
             # Compute the predictions.
