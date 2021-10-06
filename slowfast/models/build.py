@@ -29,15 +29,20 @@ def build_model(cfg):
     # Construct the model
     name = cfg.MODEL.MODEL_NAME
     model = MODEL_REGISTRY.get(name)(cfg)
-    # Determine the GPU used by the current process
-    cur_device = torch.cuda.current_device()
-    # Transfer the model to the current GPU device
-    model = model.cuda(device=cur_device)
-    # Use multi-process data parallel model in the multi-gpu setting
-    if cfg.NUM_GPUS > 1:
-        # Make model replica operate on the current device
-        model = torch.nn.parallel.DistributedDataParallel(
-            module=model, device_ids=[cur_device], output_device=cur_device,
-            find_unused_parameters=True
-        )
+
+    # if GPU available, put model on GPU
+    if torch.cuda.is_available() and cfg.USE_GPU:
+        # Determine the GPU used by the current process
+        cur_device = torch.cuda.current_device()
+        # Transfer the model to the current GPU device
+        model = model.cuda(device=cur_device)
+
+        # Use multi-process data parallel model in the multi-gpu setting
+        if cfg.NUM_GPUS > 1:
+            # Make model replica operate on the current device
+            model = torch.nn.parallel.DistributedDataParallel(
+                module=model, device_ids=[cur_device], output_device=cur_device,
+                find_unused_parameters=True
+            )
+
     return model

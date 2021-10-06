@@ -163,6 +163,7 @@ def test(cfg):
 
     # Build the video model and print model statistics.
     model = build_model(cfg)
+    import ipdb; ipdb.set_trace()
     if du.is_master_proc():
         misc.log_model_info(model, cfg, is_train=False)
 

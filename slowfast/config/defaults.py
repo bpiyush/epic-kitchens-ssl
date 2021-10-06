@@ -305,6 +305,9 @@ _C.SOLVER.OPTIMIZING_METHOD = "sgd"
 # Misc options
 # ---------------------------------------------------------------------------- #
 
+# flag to indicate whether to use GPU or not
+_C.USE_GPU = True
+
 # Number of GPUs to use (applies to both training and testing).
 _C.NUM_GPUS = 1
 
