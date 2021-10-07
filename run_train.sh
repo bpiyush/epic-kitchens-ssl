@@ -18,8 +18,8 @@ logs_dir=$output_dir/logs/
 mkdir -p $logs_dir
 
 # dataset paths
-dataset_dir=/ssd/pbagad/datasets/EPIC-KITCHENS-100/EPIC-KITCHENS/
-annotations_dir=/ssd/pbagad/datasets/EPIC-KITCHENS-100/annotations/
+dataset_dir=/local-ssd/pbagad/datasets/EPIC-KITCHENS-100/EPIC-KITCHENS/
+annotations_dir=/local-ssd/pbagad/datasets/EPIC-KITCHENS-100/annotations/
 
 # run training
 python tools/run_net.py \
