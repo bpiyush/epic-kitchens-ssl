@@ -99,7 +99,7 @@ class CTP(nn.Module):
         self.cfg = cfg
         self.num_pathways = 1
         self._construct_network(cfg)
-        self._init_weights(self.encoder, ckpt_path=cfg.MODEL.CKPT)
+        self._init_weights(self.encoder, ckpt_path=cfg.TRAIN.CHECKPOINT_FILE_PATH)
     
     def _init_weights(self, encoder, ckpt_path):
 
@@ -120,7 +120,7 @@ class CTP(nn.Module):
             msg = encoder.load_state_dict(state_dict, strict=False)
             print(f":::::: Initilized weight from {ckpt_path} with the following information \n {msg} \n")
         else:
-            print(":::::: Initializing weights randomly since cfg.MODEL.CKPT = None.")
+            print(":::::: Initializing weights randomly since cfg.TRAIN.CHECKPOINT_FILE_PATH = None.")
 
     def _construct_network(self, cfg):
         """
@@ -131,7 +131,7 @@ class CTP(nn.Module):
         # define encoder
         args = dict(
             depth=18,
-            num_class=NUM_CLASSES,
+            num_class=None,
             num_stages=4,
             stem=dict(
                 temporal_kernel_size=3,
@@ -194,7 +194,7 @@ if __name__ == "__main__":
 
     # load cfg
     args = parse_args()
-    args.cfg_file = "../../../configs/EPIC-KITCHENS/CTP_8x8_R50_k400.yaml"
+    args.cfg_file = "../../../configs/EPIC-KITCHENS/CTP_8x8_R2Plus1D_k400.yaml"
     cfg = load_config(args)
 
     # load model
@@ -210,7 +210,7 @@ if __name__ == "__main__":
     assert y[1].shape == (1, 300)
 
     # check ckpt loading
-    ckpt_path = cfg.MODEL.CKPT
+    ckpt_path = cfg.TRAIN.CHECKPOINT_FILE_PATH
     ckpt = torch.load(ckpt_path, map_location="cpu")
 
     esd = model.encoder.state_dict()

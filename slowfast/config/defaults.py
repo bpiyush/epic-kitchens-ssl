@@ -171,9 +171,6 @@ _C.MODEL.ARCH = "slowfast"
 # Model name
 _C.MODEL.MODEL_NAME = "SlowFast"
 
-# Checkpoint path
-_C.MODEL.CKPT = None
-
 # The number of classes to predict for the model.
 _C.MODEL.NUM_CLASSES = [400, ]
 

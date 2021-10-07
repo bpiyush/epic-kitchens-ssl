@@ -3,9 +3,10 @@ repo="$(cd "$(dirname "$1")"; pwd -P)/$(basename "$1")"
 export PYTHONPATH=$repo
 
 # expt details
-cfg=configs/EPIC-KITCHENS/SLOWFAST_8x8_R50_k400-pretrain.yaml
+# cfg=configs/EPIC-KITCHENS/SLOWFAST_8x8_R50_k400-pretrain.yaml
+cfg=configs/EPIC-KITCHENS/CTP_8x8_R2Plus1D_k400.yaml
 num_gpus=4
-train_ckpt_path=/home/pbagad/expts/epic-kitchens-ssl/pretrained/SLOWFAST_8x8_R50.pkl
+# train_ckpt_path=/home/pbagad/expts/epic-kitchens-ssl/pretrained/SLOWFAST_8x8_R50.pkl
 
 # output paths
 expt_folder="$(basename -- $cfg)"
@@ -27,4 +28,4 @@ python tools/run_net.py \
     OUTPUT_DIR $output_dir \
     EPICKITCHENS.VISUAL_DATA_DIR $dataset_dir \
     EPICKITCHENS.ANNOTATIONS_DIR $annotations_dir > $logs_dir/train_logs.txt \
-    TRAIN.CHECKPOINT_FILE_PATH $train_ckpt_path
+    # TRAIN.CHECKPOINT_FILE_PATH $train_ckpt_path
