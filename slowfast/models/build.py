@@ -6,6 +6,8 @@
 import torch
 from fvcore.common.registry import Registry
 
+from slowfast.models.ctp import CTP
+
 MODEL_REGISTRY = Registry("MODEL")
 MODEL_REGISTRY.__doc__ = """
 Registry for video model.
@@ -13,6 +15,8 @@ Registry for video model.
 The registered object will be called with `obj(cfg)`.
 The call should return a `torch.nn.Module` object.
 """
+
+MODEL_REGISTRY.do_register("CTP", CTP)
 
 
 def build_model(cfg):
