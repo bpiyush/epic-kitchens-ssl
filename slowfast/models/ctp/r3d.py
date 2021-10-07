@@ -327,8 +327,10 @@ class BaseResNet3D(nn.Module):
                 with_bn=with_bn)
             self.add_module('layer{}'.format(i+1), layer)
             in_channels = int(filter_config[i][0])
-        self.avgpool = nn.AdaptiveAvgPool3d((1, 1, 1))
-        self.fc = nn.Linear(512 , num_class)
+        
+        # REMOVE: to make CTP for EPIC work
+        # self.avgpool = nn.AdaptiveAvgPool3d((1, 1, 1))
+        # self.fc = nn.Linear(512 , num_class)
 
         self.frozen = frozen
         if isinstance(self.frozen, bool):
@@ -350,10 +352,15 @@ class BaseResNet3D(nn.Module):
         feats = [x]
         for i in range(self.num_stages):
             feats.append(getattr(self, 'layer{}'.format(i+1))(feats[-1]))
-        x = self.avgpool(feats[-1])
-        # Flatten the layer to fc
-        x = x.flatten(1)
-        x = self.fc(x)
+
+        x = feats[-1]
+
+        # REMOVE: to make CTP for EPIC work
+        # x = self.avgpool(feats[-1])
+        # # Flatten the layer to fc
+        # x = x.flatten(1)
+        # x = self.fc(x)
+
         return x
 
         #if self.return_indices is None:
