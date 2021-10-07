@@ -26,14 +26,16 @@ def init_wandb(name):
 
 
 if __name__ == "__main__":
-    sample_path = "/home/pbagad/expts/epic-kitchens-ssl/R2PLUS1D_8x8_R2+1D_K400/logs/train_logs.txt"
+    # sample_path = "/home/pbagad/expts/epic-kitchens-ssl/R2PLUS1D_8x8_R2+1D_K400/logs/train_logs.txt"
+    # sample_path = "/home/pbagad/expts/epic-kitchens-ssl/SLOWFAST_8x8_R50_k400-pretrain/logs/train_logs.txt"
+    sample_path = "/home/pbagad/expts/epic-kitchens-ssl/CTP_8x8_R2Plus1D_k400/logs/train_logs_1.txt"
     lines = read_txt(sample_path)
     stat_lines = get_logged_stats(lines)
 
-    init_wandb(name="R2PLUS1D_8x8_R2+1D_K400")
+    init_wandb(name="CTP_8x8_R2Plus1D_k400")
 
     config = wandb.config
-    config.config_name = "R2PLUS1D_8x8_R2+1D_K400.yaml"
+    config.config_name = "CTP_8x8_R2Plus1D_k400.yaml"
 
     for line in tqdm(stat_lines, desc="Logging on W&B"):
         line.update(
