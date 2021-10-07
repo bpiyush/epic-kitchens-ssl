@@ -216,7 +216,7 @@ if __name__ == "__main__":
     assert y[1].shape == (1, 300)
 
     # check ckpt loading
-    ckpt_path = "/home/pbagad/models/CTP/Kinetics/pretext_checkpoint/r2p1d18_ctp_k400_epoch_90.pth"
+    ckpt_path = cfg.MODEL.CKPT
     ckpt = torch.load(ckpt_path, map_location="cpu")
 
     esd = model.encoder.state_dict()
