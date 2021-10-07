@@ -15,10 +15,6 @@ from slowfast.models import head_helper
 
 arch_options = ["R3D", "R2Plus1D"]
 
-NUM_CLASSES = 101
-
-
-
 
 # def load_checkpoint_ctp(model,pretrained):
 #     # load from pre-trained, before DistributedDataParallel constructor
@@ -191,8 +187,6 @@ class CTP(nn.Module):
                 if isinstance(m, nn.BatchNorm3d):
                     # shutdown running statistics update in frozen mode
                     m.eval()
-
-
 
 
 if __name__ == "__main__":
