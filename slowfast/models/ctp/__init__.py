@@ -99,7 +99,7 @@ class CTP(nn.Module):
         self.cfg = cfg
         self.num_pathways = 1
         self._construct_network(cfg)
-        self._init_weights(self.encoder, ckpt_path=cfg.TRAIN.CHECKPOINT_FILE_PATH)
+        self._init_weights(self.encoder, ckpt_path=cfg.MODEL.CKPT)
     
     def _init_weights(self, encoder, ckpt_path):
 
@@ -120,7 +120,7 @@ class CTP(nn.Module):
             msg = encoder.load_state_dict(state_dict, strict=False)
             print(f":::::: Initilized weight from {ckpt_path} with the following information \n {msg} \n")
         else:
-            print(":::::: Initializing weights randomly since cfg.TRAIN.CHECKPOINT_FILE_PATH = None.")
+            print(":::::: Initializing weights randomly since cfg.MODEL.CKPT = None.")
 
     def _construct_network(self, cfg):
         """
@@ -210,7 +210,7 @@ if __name__ == "__main__":
     assert y[1].shape == (1, 300)
 
     # check ckpt loading
-    ckpt_path = cfg.TRAIN.CHECKPOINT_FILE_PATH
+    ckpt_path = cfg.MODEL.CKPT
     ckpt = torch.load(ckpt_path, map_location="cpu")
 
     esd = model.encoder.state_dict()
