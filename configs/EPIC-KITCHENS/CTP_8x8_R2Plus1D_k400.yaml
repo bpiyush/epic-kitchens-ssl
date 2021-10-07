@@ -7,7 +7,8 @@ TRAIN:
   CHECKPOINT_TYPE: caffe2
   AUTO_RESUME: True
   FINETUNE: True
-  CHECKPOINT_FILE_PATH: /home/pbagad/models/CTP/Kinetics/pretext_checkpoint/r2p1d18_ctp_k400_epoch_90.pth
+  # CHECKPOINT_FILE_PATH: /home/pbagad/models/CTP/Kinetics/pretext_checkpoint/r2p1d18_ctp_k400_epoch_90.pth
+  CHECKPOINT_FILE_PATH: /var/scratch/pbagad/AVID-CMA_Refactored/checkpoints/CTP/Kinetics/pretext_checkpoint/r2p1d18_ctp_k400_epoch_90.pth
 DATA:
   NUM_FRAMES: 32
   SAMPLING_RATE: 2
