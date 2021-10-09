@@ -25,8 +25,8 @@ def get_logged_stats(lines):
     return stat_lines
 
 
-def init_wandb(name, project="video-ssl", entity="uva-vislab"):
-    wandb.init(name=name, project=project, entity=entity)
+def init_wandb(name, project="video-ssl", entity="uva-vislab", dir="/var/scratch/pbagad"):
+    wandb.init(name=name, project=project, entity=entity, dir=dir)
 
 
 def get_iter_count(ep, it):
@@ -40,8 +40,21 @@ if __name__ == "__main__":
     # log_path = "/home/pbagad/expts/epic-kitchens-ssl/SLOWFAST_8x8_R50_k400-pretrain/logs/train_logs.txt"
     # log_path = "/home/pbagad/expts/epic-kitchens-ssl/CTP_8x8_R2Plus1D_k400/logs/train_logs_1.txt"
 
-    log_path = "/var/scratch/pbagad/projects/epic-kitchens-slowfast/logs/ctp_on_epic_train.txt"
-    cfg_path = "/var/scratch/pbagad/projects/epic-kitchens-slowfast/configs/EPIC-KITCHENS/CTP_8x8_R2Plus1D_k400.yaml"
+    # SlowFast
+    # log_path = "/var/scratch/pbagad/expts/epic-kitchens-ssl/SLOWFAST_8x8_R50_k400-pretrain/logs/train_logs.txt"
+    # cfg_path = "/var/scratch/pbagad/projects/epic-kitchens-ssl/configs/EPIC-KITCHENS/SLOWFAST_8x8_R50_k400-pretrain.yaml"
+
+    # CTP Model
+    # log_path = "/var/scratch/pbagad/projects/epic-kitchens-slowfast/logs/ctp_on_epic_train.txt"
+    # cfg_path = "/var/scratch/pbagad/projects/epic-kitchens-slowfast/configs/EPIC-KITCHENS/CTP_8x8_R2Plus1D_k400.yaml"
+
+    # R2+1D with original hyperparameters
+    # log_path = "/var/scratch/pbagad/projects/epic-kitchens-slowfast/logs/r2+1d_on_epic_train_from_k400-pretrain.txt"
+    # cfg_path = "/var/scratch/pbagad/projects/epic-kitchens-slowfast/configs/EPIC-KITCHENS/R2PLUS1D_8x8_R2+1D_K400.yaml"
+
+    # R2+1D with LR = 0.0025
+    log_path = "/var/scratch/pbagad/expts/epic-kitchens-ssl/32x112x112_R18_K400_LR0.0025/logs/train_logs.txt"
+    cfg_path = "/var/scratch/pbagad/projects/epic-kitchens-ssl/configs/EPIC-KITCHENS/R2PLUS1D/32x112x112_R18_K400_LR0.0025.yaml"
 
 
     # load cfg
