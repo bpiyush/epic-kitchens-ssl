@@ -53,8 +53,8 @@ if __name__ == "__main__":
     # cfg_path = "/var/scratch/pbagad/projects/epic-kitchens-slowfast/configs/EPIC-KITCHENS/R2PLUS1D_8x8_R2+1D_K400.yaml"
 
     # R2+1D with LR = 0.0025
-    log_path = "/var/scratch/pbagad/expts/epic-kitchens-ssl/32x112x112_R18_K400_LR0.0025/logs/train_logs.txt"
-    cfg_path = "/var/scratch/pbagad/projects/epic-kitchens-ssl/configs/EPIC-KITCHENS/R2PLUS1D/32x112x112_R18_K400_LR0.0025.yaml"
+    log_path = "/home/pbagad/expts/epic-kitchens-ssl/32x112x112_R18_K400_LR0.0025/logs/train_logs.txt"
+    cfg_path = "/home/pbagad/projects/epic-kitchens-ssl/configs/EPIC-KITCHENS/R2PLUS1D/32x112x112_R18_K400_LR0.0025.yaml"
 
 
     # load cfg
