@@ -4,7 +4,8 @@ export PYTHONPATH=$repo
 
 # expt details
 # cfg=configs/EPIC-KITCHENS/SLOWFAST_8x8_R50_k400-pretrain.yaml
-cfg=configs/EPIC-KITCHENS/R2PLUS1D/32x112x112_R18_K400_LR0.0025.yaml
+# cfg=configs/EPIC-KITCHENS/R2PLUS1D/32x112x112_R18_K400_LR0.0025.yaml
+cfg=configs/EPIC-KITCHENS/R2PLUS1D/32x112x112_R18_K400_LR0.001.yaml
 num_gpus=4
 # train_ckpt_path=/home/pbagad/expts/epic-kitchens-ssl/pretrained/SLOWFAST_8x8_R50.pkl
 
