@@ -71,5 +71,5 @@ python tools/run_net.py \
     EPICKITCHENS.ANNOTATIONS_DIR $annotations_dir \
     TEST.CHECKPOINT_FILE_PATH $ckpt_path \
     TRAIN.ENABLE False \
-    TEST.ENABLE True 
+    TEST.ENABLE True \
     > $logs_dir/val_logs_$ckpt.txt \
