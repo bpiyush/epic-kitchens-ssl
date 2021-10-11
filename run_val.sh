@@ -72,4 +72,4 @@ python tools/run_net.py \
     TEST.CHECKPOINT_FILE_PATH $ckpt_path \
     TRAIN.ENABLE False \
     TEST.ENABLE True 
-    # > $logs_dir/val_logs_$ckpt.txt \
+    > $logs_dir/val_logs_$ckpt.txt \

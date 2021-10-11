@@ -1076,6 +1076,9 @@ class EPICTestMeter(object):
             stats["action_top{}_acc".format(k)] = "{:.{prec}f}".format(action_topk, prec=2)
 
         logging.log_json_stats(stats)
+        print("::::: Final evaluation stats: :::::::")
+        print(stats)
+
         return (self.verb_video_preds.numpy().copy(), self.noun_video_preds.numpy().copy()), \
                (self.verb_video_labels.numpy().copy(), self.noun_video_labels.numpy().copy()), \
                self.metadata.copy()
