@@ -1061,6 +1061,7 @@ class EPICTestMeter(object):
             (self.verb_video_preds.detach().cpu(), self.noun_video_preds.detach().cpu()),
             (self.verb_video_labels.detach().cpu(), self.noun_video_labels.detach().cpu()),
             ks,
+            use_gpu=False,
         )
 
         assert len({len(ks), len(verb_topks)}) == 1

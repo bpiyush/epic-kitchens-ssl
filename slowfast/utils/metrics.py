@@ -43,7 +43,7 @@ def topks_correct(preds, labels, ks):
     return topks_correct
 
 
-def multitask_topks_correct(preds, labels, ks=(1,)):
+def multitask_topks_correct(preds, labels, ks=(1,), use_gpu=True):
     """
     Args:
         preds: tuple(torch.FloatTensor), each tensor should be of shape
@@ -59,8 +59,11 @@ def multitask_topks_correct(preds, labels, ks=(1,)):
     task_count = len(preds)
     batch_size = labels[0].size(0)
     all_correct = torch.zeros(max_k, batch_size).type(torch.ByteTensor)
-    # if torch.cuda.is_available():
-    #     all_correct = all_correct.cuda()
+
+    if use_gpu:
+        if torch.cuda.is_available():
+            all_correct = all_correct.cuda()
+
     for output, label in zip(preds, labels):
         _, max_k_idx = output.topk(max_k, dim=1, largest=True, sorted=True)
         # Flip batch_size, class_count as .view doesn't work on non-contiguous
@@ -99,13 +102,14 @@ def topk_accuracies(preds, labels, ks):
     return [(x / preds.size(0)) * 100.0 for x in num_topks_correct]
 
 
-def multitask_topk_accuracies(preds, labels, ks):
+def multitask_topk_accuracies(preds, labels, ks, use_gpu=True):
     """
     Computes the top-k accuracy for each k.
     Args:
         preds (array): array of predictions. Dimension is N.
         labels (array): array of labels. Dimension is N.
         ks (list): list of ks to calculate the top accuracies.
+        use_gpu (bool): whether to use GPU or not.
    """
-    num_multitask_topks_correct = multitask_topks_correct(preds, labels, ks)
+    num_multitask_topks_correct = multitask_topks_correct(preds, labels, ks, use_gpu=use_gpu)
     return [(x / preds[0].size(0)) * 100.0 for x in num_multitask_topks_correct]
