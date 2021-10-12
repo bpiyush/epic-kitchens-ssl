@@ -1,10 +1,39 @@
 # helper script to run sample training run
-repo="$(cd "$(dirname "$1")"; pwd -P)/$(basename "$1")"
+repo="$( cd -- "$(dirname "$0")" >/dev/null 2>&1 ; pwd -P )"
 export PYTHONPATH=$repo
 
-# expt details
-cfg=configs/EPIC-KITCHENS/SLOWFAST_8x8_R50_k400-pretrain.yaml
-num_gpus=1
+# get inputs from the user
+while getopts "c:e:n:" OPTION; do
+    case $OPTION in
+        c) cfg=$OPTARG;;
+		e) epoch=$OPTARG;;
+        n) num_gpus=$OPTARG;;
+        *) exit 1 ;;
+    esac
+done
+
+# check cfg is given
+if [ "$cfg" ==  "" ];then
+       echo "cfg is a required argument; Please use -c <relative path to config> to pass config file."
+       echo "You can choose configs from:"
+       ls $repo/configs/*
+       exit
+fi
+
+# set number of GPUs as 4 if not specified
+if [ "$num_gpus" ==  "" ];then
+       num_gpus=4
+fi
+
+# set epoch as the best checkpoint if it is not specified
+if [ "$epoch" ==  ""  ]
+then
+    ckpt="checkpoint_best.pyth"
+else
+    file=$(printf %06d $epoch).pyth
+    ckpt="checkpoint_epoch_$file"
+fi
+
 
 # output paths
 expt_folder="$(basename -- $cfg)"
@@ -16,14 +45,24 @@ logs_dir=$output_dir/logs/
 mkdir -p $logs_dir
 
 # checkpoint path
-# ckpt_path=/home/pbagad/expts/epic-kitchens-ssl/pretrained/SlowFast.pyth
-ckpt_path=/home/pbagad/expts/epic-kitchens-ssl/SLOWFAST_8x8_R50_k400-pretrain/checkpoints/checkpoint_epoch_00030.pyth
+ckpt_path=$output_dir/checkpoints/$ckpt
+
+echo ":::::::::::::::> Running eval for $cfg  :::::::::::::::"
+echo "::::::: Checkpoint: $ckpt_path ::::::::"
+
+if [ ! -f $ckpt_path ]; then
+    echo ""
+    echo "::::::: FAILED: Checkpoint not found at $ckpt_path!"
+    exit
+else
+    echo "::::::: SUCCESS: Checkpoint file found! Running evaluation ..."
+fi
 
 # dataset paths
-dataset_dir=/home/pbagad/datasets/EPIC-KITCHENS-100/EPIC-KITCHENS/
-annotations_dir=/home/pbagad/datasets/EPIC-KITCHENS-100/annotations/
+dataset_dir=/ssd/pbagad/datasets/EPIC-KITCHENS-100/EPIC-KITCHENS/
+annotations_dir=/ssd/pbagad/datasets/EPIC-KITCHENS-100/annotations/
 
-# run training
+# run evaluation
 python tools/run_net.py \
     --cfg $cfg \
     NUM_GPUS $num_gpus \
@@ -33,5 +72,4 @@ python tools/run_net.py \
     TEST.CHECKPOINT_FILE_PATH $ckpt_path \
     TRAIN.ENABLE False \
     TEST.ENABLE True \
-
-# > $logs_dir/val_logs.txt \
+    > $logs_dir/val_logs_$ckpt.txt \

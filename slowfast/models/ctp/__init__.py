@@ -99,7 +99,7 @@ class CTP(nn.Module):
         self.cfg = cfg
         self.num_pathways = 1
         self._construct_network(cfg)
-        self._init_weights(self.encoder, ckpt_path=cfg.MODEL.CKPT)
+        # self._init_weights(self.encoder, ckpt_path=cfg.MODEL.CKPT)
     
     def _init_weights(self, encoder, ckpt_path):
 
