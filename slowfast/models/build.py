@@ -7,6 +7,7 @@ import torch
 from fvcore.common.registry import Registry
 
 from slowfast.models.r2plus1d import R2Plus1D
+from slowfast.models.gdt import GDTBase
 
 MODEL_REGISTRY = Registry("MODEL")
 MODEL_REGISTRY.__doc__ = """
@@ -18,6 +19,7 @@ The call should return a `torch.nn.Module` object.
 
 
 MODEL_REGISTRY._do_register("R2Plus1D", R2Plus1D)
+MODEL_REGISTRY._do_register("GDTBase", GDTBase)
 
 
 def build_model(cfg):

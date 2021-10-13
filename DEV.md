@@ -13,3 +13,10 @@ _C.MODEL.CKPT = None
 ```
 
 **3. Add the model code**: Inside `slowfast/models/gdt/*.py`, add your model code and add relevant tests.
+
+**4. Add model to registry**: Make sure your `cfg.MODEL.ARCH` is added to `_C.MODEL.SINGLE_PATHWAY_ARCH` in `slowfast/config/defaults.py`. Then, in `slowfast/models/build.py`, add your model to registry:
+```python
+from slowfast.models.gdt import GDTBase
+
+MODEL_REGISTRY._do_register("GDTBase", GDTBase)
+```
