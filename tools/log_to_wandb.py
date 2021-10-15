@@ -46,8 +46,8 @@ if __name__ == "__main__":
     # log_path = "/home/pbagad/expts/epic-kitchens-ssl/32x112x112_R2+1D-18_K400_LR0.01/logs/train_logs.txt"
 
     # CTP with LR = 0.0025, no warmup
-    cfg_path = "/home/pbagad/projects/epic-kitchens-ssl/configs/EPIC-KITCHENS/CTP/32x112x112_R2+1D-18_K400_LR0.0025.yaml"
-    log_path = "/home/pbagad/expts/epic-kitchens-ssl/32x112x112_R2+1D-18_K400_LR0.0025/logs/train_logs.txt"
+    # cfg_path = "/home/pbagad/projects/epic-kitchens-ssl/configs/EPIC-KITCHENS/CTP/32x112x112_R2+1D-18_K400_LR0.0025.yaml"
+    # log_path = "/home/pbagad/expts/epic-kitchens-ssl/32x112x112_R2+1D-18_K400_LR0.0025/logs/train_logs.txt"
 
     # R2+1D with original hyperparameters (LR = 0.01)
     # cfg_path = "/home/pbagad/projects/epic-kitchens-ssl/configs/EPIC-KITCHENS/R2PLUS1D/32x112x112_R18_K400_LR0.01.yaml"
@@ -77,6 +77,10 @@ if __name__ == "__main__":
     # cfg_path = "/home/pbagad/projects/epic-kitchens-ssl/configs/EPIC-KITCHENS/R2PLUS1D/32x112x112_SR_4_R18_K400_LR0.0025.yaml"
     # log_path = "/home/pbagad/expts/epic-kitchens-ssl/32x112x112_SR_4_R18_K400_LR0.0025/logs/train_logs.txt"
 
+    # GDT
+    cfg_path = "/var/scratch/pbagad/projects/epic-kitchens-ssl/configs/EPIC-KITCHENS/GDT/32x112x112_GDT_R2+1D_K400_LR0.0025.yaml"    
+    log_path = "/var/scratch/pbagad/expts/epic-kitchens-ssl/32x112x112_GDT_R2+1D_K400_LR0.0025/logs/train_logs.txt"
+    
     # load cfg
     args = parse_args()
     args.cfg_file = cfg_path
