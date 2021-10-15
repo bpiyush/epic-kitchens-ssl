@@ -2,7 +2,6 @@
 repo="$( cd -- "$(dirname "$0")" >/dev/null 2>&1 ; pwd -P )"
 export PYTHONPATH=$repo
 
-
 # get inputs from the user
 while getopts "c:n:" OPTION; do
     case $OPTION in
@@ -39,8 +38,10 @@ logs_dir=$output_dir/logs/
 mkdir -p $logs_dir
 
 # dataset paths
-dataset_dir=/ssd/pbagad/datasets/EPIC-KITCHENS-100/EPIC-KITCHENS/
-annotations_dir=/ssd/pbagad/datasets/EPIC-KITCHENS-100/annotations/
+# dataset_dir=/local-ssd/pbagad/datasets/EPIC-KITCHENS-100/EPIC-KITCHENS/
+dataset_dir=/var/scratch/pbagad/datasets/EPIC-KITCHENS-100/EPIC-KITCHENS/
+# annotations_dir=/local-ssd/pbagad/datasets/EPIC-KITCHENS-100/annotations/
+annotations_dir=/var/scratch/pbagad/datasets/EPIC-KITCHENS-100/annotations/
 
 # run training
 python tools/run_net.py \
