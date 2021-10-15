@@ -6,7 +6,10 @@
 import torch
 from fvcore.common.registry import Registry
 
+
+from slowfast.models.r2plus1d import R2Plus1D
 from slowfast.models.ctp import CTP
+
 
 MODEL_REGISTRY = Registry("MODEL")
 MODEL_REGISTRY.__doc__ = """
@@ -17,6 +20,7 @@ The call should return a `torch.nn.Module` object.
 """
 
 MODEL_REGISTRY._do_register("CTP", CTP)
+MODEL_REGISTRY._do_register("R2Plus1D", R2Plus1D)
 
 
 def build_model(cfg):

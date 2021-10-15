@@ -1057,15 +1057,29 @@ class EPICTestMeter(object):
 
         verb_topks = metrics.topk_accuracies(self.verb_video_preds, self.verb_video_labels, ks)
         noun_topks = metrics.topk_accuracies(self.noun_video_preds, self.noun_video_labels, ks)
+        action_topks = metrics.multitask_topk_accuracies(
+            (self.verb_video_preds.detach().cpu(), self.noun_video_preds.detach().cpu()),
+            (self.verb_video_labels.detach().cpu(), self.noun_video_labels.detach().cpu()),
+            ks,
+            use_gpu=False,
+        )
 
         assert len({len(ks), len(verb_topks)}) == 1
         assert len({len(ks), len(noun_topks)}) == 1
+        assert len({len(ks), len(action_topks)}) == 1
+
         stats = {"split": "test_final"}
         for k, verb_topk in zip(ks, verb_topks):
             stats["verb_top{}_acc".format(k)] = "{:.{prec}f}".format(verb_topk, prec=2)
         for k, noun_topk in zip(ks, noun_topks):
             stats["noun_top{}_acc".format(k)] = "{:.{prec}f}".format(noun_topk, prec=2)
+        for k, action_topk in zip(ks, action_topks):
+            stats["action_top{}_acc".format(k)] = "{:.{prec}f}".format(action_topk, prec=2)
+
         logging.log_json_stats(stats)
+        print("::::: Final evaluation stats: :::::::")
+        print(stats)
+
         return (self.verb_video_preds.numpy().copy(), self.noun_video_preds.numpy().copy()), \
                (self.verb_video_labels.numpy().copy(), self.noun_video_labels.numpy().copy()), \
                self.metadata.copy()

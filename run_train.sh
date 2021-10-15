@@ -1,12 +1,32 @@
 # helper script to run sample training run
-repo="$(cd "$(dirname "$1")"; pwd -P)/$(basename "$1")"
+repo="$( cd -- "$(dirname "$0")" >/dev/null 2>&1 ; pwd -P )"
 export PYTHONPATH=$repo
 
-# expt details
-# cfg=configs/EPIC-KITCHENS/SLOWFAST_8x8_R50_k400-pretrain.yaml
-cfg=configs/EPIC-KITCHENS/CTP_8x8_R2Plus1D_k400.yaml
-num_gpus=4
+# get inputs from the user
+while getopts "c:n:" OPTION; do
+    case $OPTION in
+        c) cfg=$OPTARG;;
+        n) num_gpus=$OPTARG;;
+        *) exit 1 ;;
+    esac
+done
+
+# check cfg is given
+if [ "$cfg" ==  "" ];then
+       echo "cfg is a required argument; Please use -c <relative path to config> to pass config file."
+       echo "You can choose configs from:"
+       ls $repo/configs/*
+       exit
+fi
+
+# set number of GPUs as 4 if not specified
+if [ "$num_gpus" ==  "" ];then
+       num_gpus=4
+fi
+
 # train_ckpt_path=/home/pbagad/expts/epic-kitchens-ssl/pretrained/SLOWFAST_8x8_R50.pkl
+
+echo ":::::::::::::::> Running training for $cfg  :::::::::::::::"
 
 # output paths
 expt_folder="$(basename -- $cfg)"
