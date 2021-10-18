@@ -180,6 +180,10 @@ _C.MODEL.NUM_CLASSES = [400, ]
 # Loss function.
 _C.MODEL.LOSS_FUNC = "cross_entropy"
 
+# Loss weights for Noun and Verb heads
+_C.MODEL.NOUN_LOSS_WEIGHT = 0.5
+_C.MODEL.VERB_LOSS_WEIGHT = 0.5
+
 # Model architectures that has one single pathway.
 _C.MODEL.SINGLE_PATHWAY_ARCH = ["c2d", "i3d", "slowonly", "r2plus1d_18"]
 
