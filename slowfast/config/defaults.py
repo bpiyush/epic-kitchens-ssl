@@ -171,7 +171,7 @@ _C.MODEL.ARCH = "slowfast"
 # Model name
 _C.MODEL.MODEL_NAME = "SlowFast"
 
-# Checkpoint
+# Model checkpoint path (optional)
 _C.MODEL.CKPT = None
 
 # The number of classes to predict for the model.
@@ -180,8 +180,12 @@ _C.MODEL.NUM_CLASSES = [400, ]
 # Loss function.
 _C.MODEL.LOSS_FUNC = "cross_entropy"
 
+# Loss weights for Noun and Verb heads
+_C.MODEL.NOUN_LOSS_WEIGHT = 0.5
+_C.MODEL.VERB_LOSS_WEIGHT = 0.5
+
 # Model architectures that has one single pathway.
-_C.MODEL.SINGLE_PATHWAY_ARCH = ["c2d", "i3d", "slowonly"]
+_C.MODEL.SINGLE_PATHWAY_ARCH = ["c2d", "i3d", "slowonly", "r2plus1d_18"]
 
 # Model architectures that has multiple pathways.
 _C.MODEL.MULTI_PATHWAY_ARCH = ["slowfast"]
@@ -307,9 +311,6 @@ _C.SOLVER.OPTIMIZING_METHOD = "sgd"
 # ---------------------------------------------------------------------------- #
 # Misc options
 # ---------------------------------------------------------------------------- #
-
-# flag to indicate whether to use GPU or not
-_C.USE_GPU = True
 
 # Number of GPUs to use (applies to both training and testing).
 _C.NUM_GPUS = 1

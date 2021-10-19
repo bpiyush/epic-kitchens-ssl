@@ -85,6 +85,10 @@ if __name__ == "__main__":
     cfg_path = "/home/pbagad/projects/epic-kitchens-ssl/configs/EPIC-KITCHENS/VIDEOMOCO/32x112x112_VMOCO_R18_K400_LR0.0025.yaml"
     log_path = "/home/pbagad/expts/epic-kitchens-ssl/32x112x112_VMOCO_R18_K400_LR0.0025/logs/train_logs.txt"
 
+    # GDT with only nouns
+    cfg_path = "/home/pbagad/projects/epic-kitchens-ssl/configs/EPIC-KITCHENS/GDT/32x112x112_GDT_r2+1D_K400_LR0.0025_only_noun.yaml"
+    log_path = "/home/pbagad/expts/epic-kitchens-ssl/32x112x112_GDT_r2+1D_K400_LR0.0025_only_noun/logs/train_logs.txt"
+
     # load cfg
     args = parse_args()
     args.cfg_file = cfg_path
