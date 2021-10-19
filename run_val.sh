@@ -62,7 +62,7 @@ fi
 # dataset paths
 # dataset_dir=/local-ssd/pbagad/EPIC-KITCHENS/
 # annotations_dir=/local-ssd/pbagad/datasets/EPIC-KITCHENS-100/annotations/
-dataset_dir=/ssd/pbagad/EPIC-KITCHENS-100/EPIC-KITCHENS/
+dataset_dir=/ssd/pbagad/datasets/EPIC-KITCHENS-100/EPIC-KITCHENS/
 annotations_dir=/ssd/pbagad/datasets/EPIC-KITCHENS-100/annotations/
 
 # run evaluation
