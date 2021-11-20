@@ -168,6 +168,9 @@ _C.MODEL = CfgNode()
 # Model architecture.
 _C.MODEL.ARCH = "slowfast"
 
+# Pretraining flag
+_C.MODEL.PRETRAINED = True
+
 # Model name
 _C.MODEL.MODEL_NAME = "SlowFast"
 
