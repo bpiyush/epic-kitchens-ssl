@@ -114,7 +114,7 @@ if __name__ == "__main__":
 
     # load cfg
     args = parse_args()
-    args.cfg_file = "../../../configs/EPIC-KITCHENS/TCLR/32x112x112_R18_K400_LR0.0025.yaml"
+    args.cfg_file = "../../../configs/EPIC-KITCHENS/TCLR/tclr_32x112x112_R18_K400_LR0.0025.yaml"
     cfg = load_config(args)
 
     # load model
