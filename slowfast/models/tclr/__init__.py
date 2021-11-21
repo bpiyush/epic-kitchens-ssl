@@ -39,13 +39,19 @@ class TCLR(nn.Module):
         # define the encoder
         pretrained = cfg.MODEL.PRETRAINED
         self.encoder = video_resnet.__dict__[cfg.MODEL.ARCH](pretrained=pretrained)
+        self.encoder.layer4[0].conv1[0] = nn.Conv3d(256, 512, kernel_size=(3, 3, 3),\
+                                    stride=(1, 2, 2), padding=(2, 1, 1),dilation = (2,1,1), bias=False)
+        self.encoder.layer4[0].downsample[0] = nn.Conv3d(256, 512,\
+                            kernel_size = (1, 1, 1), stride = (1, 2, 2), bias=False)
+
 
         self.init_weights_from_checkpoint(cfg.MODEL.CKPT)
 
         # add K = 2 heads (noun and verb prediction)
         # temporary hardcoding
+        # this needs (8, 7, 7) pooling instead of (4, 7, 7) due to the change in the last conv layer
         pool_size=[
-            [4, 7, 7]
+            [8, 7, 7]
         ]
 
         # temporary hardcoding
