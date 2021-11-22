@@ -13,6 +13,8 @@ DATA:
   NUM_FRAMES: 32
   SAMPLING_RATE: 2
   TRAIN_JITTER_SCALES: [256, 320]
+  MEAN: [0.0, 0.0, 0.0]
+  STD: [1.0, 1.0, 1.0]
   # CHECK
   TRAIN_CROP_SIZE: 112
   # CHECK
@@ -55,15 +57,15 @@ MODEL:
   NUM_CLASSES: [97, 300]
   # CHECK
   ARCH: r2plus1d_18
-  PRETRAINED: False
-  MODEL_NAME: R2Plus1D
+  MODEL_NAME: TCLR
+  CKPT: /var/scratch/fmthoker/ssl_benchmark/checkpoints/TCLR/Kinetics/pretext_checkpoint/rpd18kin400.pth
   LOSS_FUNC: cross_entropy
   DROPOUT_RATE: 0.5
 TEST:
   ENABLE: False
   DATASET: epickitchens
   # CHECK
-  BATCH_SIZE: 16
+  BATCH_SIZE: 20
   NUM_SPATIAL_CROPS: 1
 DATA_LOADER:
   NUM_WORKERS: 8
