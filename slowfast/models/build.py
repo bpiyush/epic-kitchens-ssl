@@ -11,6 +11,7 @@ from slowfast.models.r2plus1d import R2Plus1D
 from slowfast.models.ctp import CTP
 from slowfast.models.pretext_contrast import PretextContrast
 from slowfast.models.tclr import TCLR
+from slowfast.models.selavi import SELAVI
 
 
 MODEL_REGISTRY = Registry("MODEL")
@@ -25,6 +26,7 @@ MODEL_REGISTRY._do_register("CTP", CTP)
 MODEL_REGISTRY._do_register("R2Plus1D", R2Plus1D)
 MODEL_REGISTRY._do_register("PretextContrast", PretextContrast)
 MODEL_REGISTRY._do_register("TCLR", TCLR)
+MODEL_REGISTRY._do_register("SELAVI", SELAVI)
 
 
 def build_model(cfg):

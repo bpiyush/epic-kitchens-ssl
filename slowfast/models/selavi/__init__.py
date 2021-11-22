@@ -9,9 +9,8 @@ import torchvision.models.video as models
 from slowfast.models import head_helper
 from slowfast.models.r2plus1d import video_resnet
 
-from slowfast.models.selavi.model import load_model, get_video_dim
-from slowfast.models.selavi.model import Finetune_Model,load_model_parameters
-
+from slowfast.models.selavi.model import load_model
+from slowfast.models.selavi.model import load_model_parameters
 
 
 class SELAVI(nn.Module):
