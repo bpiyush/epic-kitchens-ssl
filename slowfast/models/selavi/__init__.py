@@ -40,9 +40,7 @@ class SELAVI(nn.Module):
         """
 
         # define the encoder
-        # pretrained = cfg.MODEL.PRETRAINED
-        # self.encoder = video_resnet.__dict__[cfg.MODEL.ARCH](pretrained=pretrained)
-        self.encoder = load_model(
+        model = load_model(
             vid_base_arch=cfg.MODEL.ARCH,
             aud_base_arch="resnet9",
             pretrained=False,
@@ -51,9 +49,9 @@ class SELAVI(nn.Module):
             use_mlp=True,
             headcount=10,
         )
-        self.init_weights_from_ckpt(self.encoder, cfg.MODEL.CKPT)
-        import ipdb; ipdb.set_trace()
-
+        self.init_weights_from_ckpt(model, cfg.MODEL.CKPT)
+        model.video_network.base.avgpool = nn.Identity()
+        self.encoder = model.video_network.base
 
         # add K = 2 heads (noun and verb prediction)
         # temporary hardcoding
@@ -84,7 +82,6 @@ class SELAVI(nn.Module):
             print(f"Loading model done")
         else:
             print(f"Training from scratch")
-
 
     def forward(self, x):
 

@@ -92,7 +92,9 @@ class MLPv2(nn.Module):
 
 def get_video_feature_extractor(vid_base_arch='r2plus1d_18', pretrained=False, duration=1):
     if vid_base_arch =='r2plus1d_18':
-        model = torchvision.models.video.__dict__[vid_base_arch](pretrained=pretrained)
+        from slowfast.models.r2plus1d import video_resnet
+        model = video_resnet.__dict__[vid_base_arch](pretrained=pretrained)
+        # model = torchvision.models.video.__dict__[vid_base_arch](pretrained=pretrained)
         if not pretrained:
             print("Randomy initializing models")
             random_weight_init(model)
@@ -143,7 +145,8 @@ class VideoBaseNetwork(nn.Module):
         self.norm_feat = norm_feat
 
     def forward(self, x):
-        x = self.base(x).squeeze()
+        # x = self.base(x).squeeze()
+        x = self.base(x)
         if self.norm_feat:
             x = F.normalize(x, p=2, dim=1)
         return x
