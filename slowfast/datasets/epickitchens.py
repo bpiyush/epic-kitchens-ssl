@@ -41,6 +41,11 @@ class Epickitchens(torch.utils.data.Dataset):
             )
 
         logger.info("Constructing EPIC-KITCHENS {}...".format(mode))
+        
+        if self.cfg.DATA.USE_UNIQUE_FRAMES:
+            num_unique_frames = self.cfg.DATA.NUM_UNIQUE_FRAMES      
+            logger.info(f"::: Using unique frames: {num_unique_frames}")
+
         self._construct_loader()
 
     def _construct_loader(self):
@@ -127,6 +132,15 @@ class Epickitchens(torch.utils.data.Dataset):
             )
 
         frames = pack_frames_to_video_clip(self.cfg, self._video_records[index], temporal_sample_index)
+        if self.cfg.DATA.USE_UNIQUE_FRAMES:
+            import numpy as np
+            num_unique_frames = self.cfg.DATA.NUM_UNIQUE_FRAMES
+            
+            frame_idx = np.random.choice(frames.shape[0], num_unique_frames, replace=False)
+            frame_idx = np.repeat(frame_idx, frames.shape[0] // num_unique_frames)
+            frames = frames[frame_idx]
+            
+            logger.info(f"::: Using unique frames: {num_unique_frames}, shape: {frames.shape}")
         
         # Perform color normalization.
         frames = frames.float()
@@ -196,3 +210,18 @@ class Epickitchens(torch.utils.data.Dataset):
             )
             frames, _ = transform.uniform_crop(frames, crop_size, spatial_idx)
         return frames
+
+
+if __name__ == "__main__":
+    from tools.run_net import parse_args, load_config
+
+    cfg_path = "../../configs/EPIC-KITCHENS/R2PLUS1D/8x112x112_R18_K400_LR0.0025_uniq_frames_1.yaml"
+    dataset_dir = "/ssd/pbagad/datasets/EPIC-KITCHENS-100/EPIC-KITCHENS/"
+    annotations_dir = "/ssd/pbagad/datasets/EPIC-KITCHENS-100/annotations/"
+
+    args = parse_args()
+    args.cfg_file = cfg_path
+    cfg = load_config(args)
+    
+    dataset = Epickitchens(cfg, "train")
+    import ipdb; ipdb.set_trace()

@@ -42,7 +42,8 @@ class R2Plus1D(nn.Module):
         # add K = 2 heads (noun and verb prediction)
         # temporary hardcoding
         pool_size=[
-            [4, 7, 7]
+            # [4, 7, 7]
+            [cfg.DATA.NUM_FRAMES // 8, 7, 7]
         ]
 
         # temporary hardcoding

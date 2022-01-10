@@ -234,6 +234,10 @@ _C.DATA.CROP_SIZE = 224
 # The number of frames of the input clip.
 _C.DATA.NUM_FRAMES = 8
 
+# The number of unique frames to use (for temporality testing)
+_C.DATA.USE_UNIQUE_FRAMES = False
+_C.DATA.NUM_UNIQUE_FRAMES = 1
+
 # The video sampling rate of the input clip.
 _C.DATA.SAMPLING_RATE = 8
 
