@@ -9,8 +9,12 @@ cfg=configs/EPIC-KITCHENS/R2PLUS1D/8x112x112_R18_K400_LR0.0025_uniq_frames_1.yam
 num_gpus=1
 
 # output paths
-expt_folder="$(basename -- $cfg)"
-expt_folder="${expt_folder%.yaml}"
+# expt_folder="$(basename -- $(basename -- $cfg))"
+# expt_folder="${expt_folder%.yaml}"
+expt_folder="${cfg%.yaml}"
+IFS='/' read -r -a array <<< $expt_folder
+expt_folder="${array[-2]}--${array[-1]}"
+
 output_dir=/home/pbagad/expts/epic-kitchens-ssl/$expt_folder/
 echo "Saving outputs: "$output_dir
 mkdir -p $output_dir

@@ -29,8 +29,12 @@ fi
 echo ":::::::::::::::> Running training for $cfg  :::::::::::::::"
 
 # output paths
-expt_folder="$(basename -- $cfg)"
-expt_folder="${expt_folder%.yaml}"
+# expt_folder="$(basename -- $(basename -- $cfg))"
+# expt_folder="${expt_folder%.yaml}"
+expt_folder="${cfg%.yaml}"
+IFS='/' read -r -a array <<< $expt_folder
+expt_folder="${array[-2]}--${array[-1]}"
+
 output_dir=/home/pbagad/expts/epic-kitchens-ssl/$expt_folder/
 echo "Saving outputs: "$output_dir
 mkdir -p $output_dir
