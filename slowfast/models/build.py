@@ -13,6 +13,7 @@ from slowfast.models.pretext_contrast import PretextContrast
 from slowfast.models.tclr import TCLR
 from slowfast.models.selavi import SELAVI
 from slowfast.models.avid_cma import AVID_CMA
+from slowfast.models.rspnet import RSPNet
 
 
 MODEL_REGISTRY = Registry("MODEL")
@@ -29,6 +30,7 @@ MODEL_REGISTRY._do_register("PretextContrast", PretextContrast)
 MODEL_REGISTRY._do_register("TCLR", TCLR)
 MODEL_REGISTRY._do_register("SELAVI", SELAVI)
 MODEL_REGISTRY._do_register("AVID_CMA", AVID_CMA)
+MODEL_REGISTRY._do_register("RSPNet", RSPNet)
 
 
 def build_model(cfg):

@@ -61,6 +61,10 @@ fi
 # dataset paths
 # dataset_dir=/ssd/pbagad/datasets/EPIC-KITCHENS-100/EPIC-KITCHENS/
 dataset_dir=/local-ssd/pbagad/EPIC-KITCHENS/
+<<<<<<< HEAD
+=======
+# annotations_dir=/ssd/pbagad/datasets/EPIC-KITCHENS-100/annotations/
+>>>>>>> pb/rsp
 annotations_dir=/local-ssd/pbagad/datasets/EPIC-KITCHENS-100/annotations/
 
 # run evaluation
