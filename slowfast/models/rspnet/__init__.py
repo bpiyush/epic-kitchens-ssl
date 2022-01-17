@@ -11,6 +11,7 @@ from slowfast.models import head_helper
 from slowfast.models.r2plus1d import video_resnet
 from slowfast.models.rspnet.models import ModelFactory, get_model_class
 from slowfast.models.rspnet.models.r2plus1d_vcop import R2Plus1DNet
+from slowfast.models.r2plus1d import video_resnet
 
 
 class RSPNet(nn.Module):
@@ -40,10 +41,21 @@ class RSPNet(nn.Module):
         """
 
         # define the encoder
-        if cfg.MODEL.ARCH == "r2plus1d-vcop":
-            self.encoder = R2Plus1DNet(
-                layer_sizes=(1, 1, 1, 1), with_classifier=False, return_unpooled=True,
-            )
+        if cfg.MODEL.ARCH == "r2plus1d_18":
+            # self.encoder = R2Plus1DNet(
+            #     layer_sizes=(1, 1, 1, 1), with_classifier=False,
+            # )
+            # self.encoder = video_resnet.__dict__[cfg.MODEL.ARCH](pretrained=False)
+
+            #rspnet imports
+            from slowfast.models.rspnet.models.R2plus1D import R21D
+            # from slowfast.models.rspnet.models import ModelFactory
+
+            # rspnet model
+            # model_factory = ModelFactory()
+            # self.encoder = model_factory.build_multitask_wrapper("r2plus1d_18", num_classes=101)
+            self.encoder = R21D(num_classes=None, with_classifier=False)
+            
         else:
             raise ValueError(f"cfg.MODEL.ARCH = {cfg.MODEL.ARCH} currently not supported for RSPNet")
 
@@ -91,7 +103,7 @@ class RSPNet(nn.Module):
         if 'model' in cp and 'arch' in cp:
             print('Loading MoCo checkpoint from %s (epoch %d)', ckpt_path, cp['epoch'])
             moco_state = cp['model']
-            prefix = 'encoder_q.encoder.'
+            prefix = 'encoder_q.'
         else:
             # This checkpoint is from third-party
             #logger.info('Loading third-party model from %s', ckpt_path)
@@ -118,6 +130,7 @@ class RSPNet(nn.Module):
             return k.startswith(prefix) and not any(k.startswith(f'{prefix}{fc}') for fc in blacklist)
 
         model_state = {k[len(prefix):]: v for k, v in moco_state.items() if filter(k)}
+        model_state = {k.replace("encoder.", ""):v for k, v in model_state.items()}
         msg = self.encoder.load_state_dict(model_state, strict=False)
         print(f'Missing keys: {msg.missing_keys}, Unexpected keys: {msg.unexpected_keys}')
 

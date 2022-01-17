@@ -4,7 +4,7 @@ from pyhocon import ConfigTree
 from torch import distributed as dist
 from torch import nn
 
-from rspnet.models import get_model_class
+from slowfast.models.rspnet.models import get_model_class
 from .builder_diffspeed_diffloss import MoCoDiffLossTwoFc
 from .split_wrapper import MultiTaskWrapper
 

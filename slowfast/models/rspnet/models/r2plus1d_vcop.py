@@ -167,7 +167,7 @@ class R2Plus1DNet(nn.Module):
     """
 
     def __init__(self, layer_sizes, block_type=SpatioTemporalResBlock, with_classifier=False, return_conv=False,
-                 num_classes=101, return_unpooled=False):
+                 num_classes=101):
         super(R2Plus1DNet, self).__init__()
         self.with_classifier = with_classifier
         self.return_conv = return_conv
@@ -190,11 +190,7 @@ class R2Plus1DNet(nn.Module):
             # self.feature_pool = nn.MaxPool3d(kernel_size=(2, 2, 2), stride=(2, 2, 2)) 4182
 
         # global average pooling of the output
-        # CHANGED
-        if return_unpooled:
-            self.pool = nn.Identity()
-        else:
-            self.pool = nn.AdaptiveAvgPool3d(1)
+        self.pool = nn.AdaptiveAvgPool3d(1)
 
         if self.with_classifier:
             self.linear = nn.Linear(512, self.num_classes)
@@ -212,8 +208,7 @@ class R2Plus1DNet(nn.Module):
             return x.view(x.shape[0], -1)
 
         x = self.pool(x)
-        # CHANGED
-        # x = x.view(-1, 512)
+        x = x.view(-1, 512)
 
         if self.with_classifier:
             x = self.linear(x)
@@ -221,11 +216,13 @@ class R2Plus1DNet(nn.Module):
         return x
 
     def get_feature(self, x):
+        #print("input size",x.size())
         x = self.relu1(self.bn1(self.conv1(x)))
         x = self.conv2(x)
         x = self.conv3(x)
         x = self.conv4(x)
         x = self.conv5(x)
+        #print("feature size",x.size())
         return x
 
 

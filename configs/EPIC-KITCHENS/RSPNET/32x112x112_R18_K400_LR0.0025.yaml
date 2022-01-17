@@ -52,9 +52,10 @@ SOLVER:
   OPTIMIZING_METHOD: sgd
 MODEL:
   NUM_CLASSES: [97, 300]
-  ARCH: r2plus1d-vcop
+  ARCH: r2plus1d_18
   MODEL_NAME: RSPNet
-  CKPT: /var/scratch/pbagad/AVID-CMA_Refactored/checkpoints/RSPNET/Kinetics/pretext_checkpoint/model_best_r21d_200epoch.pth.tar
+  # CKPT: /var/scratch/pbagad/AVID-CMA_Refactored/checkpoints/RSPNET/Kinetics/pretext_checkpoint/model_best_r21d_200epoch.pth.tar
+  CKPT: /home/pbagad/projects/video-ssl-benchmark/checkpoints/RSPNET_snellius/Kinetics/pretext_checkpoint/snellius_checkpoint_epoch_200.pth.tar
   LOSS_FUNC: cross_entropy
   DROPOUT_RATE: 0.5
 TEST:
