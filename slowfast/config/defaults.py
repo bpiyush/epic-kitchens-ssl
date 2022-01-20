@@ -171,6 +171,9 @@ _C.MODEL.ARCH = "slowfast"
 # Pretraining flag
 _C.MODEL.PRETRAINED = True
 
+# whether to freeze the backbone weights during training
+_C.MODEL.FREEZE_BACKBONE = False
+
 # Model name
 _C.MODEL.MODEL_NAME = "SlowFast"
 
