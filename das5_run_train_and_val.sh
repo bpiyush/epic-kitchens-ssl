@@ -73,3 +73,14 @@ output_dir=/var/scratch/pbagad/expts/epic-kitchens-ssl/$expt_folder/
 tail $output_dir/logs/val_logs_checkpoint_best.pyth.txt
 
 
+echo ":: VIDEOMOCO"
+cfg=configs/EPIC-KITCHENS/VIDEOMOCO/das5_32x112x112_R18_K400_LR0.0025_linear.yaml
+bash das5_train.sh -c $cfg
+bash das5_val.sh -c $cfg
+
+expt_folder="${cfg%.yaml}"
+IFS='/' read -r -a array <<< $expt_folder
+expt_folder="${array[-2]}--${array[-1]}"
+output_dir=/var/scratch/pbagad/expts/epic-kitchens-ssl/$expt_folder/
+tail $output_dir/logs/val_logs_checkpoint_best.pyth.txt
+
