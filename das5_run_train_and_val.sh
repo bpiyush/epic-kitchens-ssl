@@ -1,7 +1,7 @@
 # setup env
 conda activate slowfast-gpu
 
-echo ":: CTP"
+# echo ":: CTP"
 # cfg=configs/EPIC-KITCHENS/CTP/das5_32x112x112_latest_ckpt_R2+1D-18_K400_LR0.0025_linear.yaml
 # bash das5_train.sh -c $cfg
 # bash das5_val.sh -c $cfg
