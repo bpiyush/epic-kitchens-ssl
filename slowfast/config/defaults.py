@@ -168,6 +168,12 @@ _C.MODEL = CfgNode()
 # Model architecture.
 _C.MODEL.ARCH = "slowfast"
 
+# Pretraining flag
+_C.MODEL.PRETRAINED = True
+
+# whether to freeze the backbone weights during training
+_C.MODEL.FREEZE_BACKBONE = False
+
 # Model name
 _C.MODEL.MODEL_NAME = "SlowFast"
 
@@ -181,7 +187,7 @@ _C.MODEL.NUM_CLASSES = [400, ]
 _C.MODEL.LOSS_FUNC = "cross_entropy"
 
 # Model architectures that has one single pathway.
-_C.MODEL.SINGLE_PATHWAY_ARCH = ["c2d", "i3d", "slowonly", "r2plus1d_18", "R2Plus1D"]
+_C.MODEL.SINGLE_PATHWAY_ARCH = ["c2d", "i3d", "slowonly", "r2plus1d_18", "R2Plus1D", "r2plus1d-vcop"]
 
 # Model architectures that has multiple pathways.
 _C.MODEL.MULTI_PATHWAY_ARCH = ["slowfast"]
@@ -230,6 +236,10 @@ _C.DATA.CROP_SIZE = 224
 
 # The number of frames of the input clip.
 _C.DATA.NUM_FRAMES = 8
+
+# The number of unique frames to use (for temporality testing)
+_C.DATA.USE_UNIQUE_FRAMES = False
+_C.DATA.NUM_UNIQUE_FRAMES = 1
 
 # The video sampling rate of the input clip.
 _C.DATA.SAMPLING_RATE = 8

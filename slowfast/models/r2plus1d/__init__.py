@@ -36,13 +36,14 @@ class R2Plus1D(nn.Module):
         """
 
         # define the encoder
-        pretrained = True
+        pretrained = cfg.MODEL.PRETRAINED
         self.encoder = video_resnet.__dict__[cfg.MODEL.ARCH](pretrained=pretrained)
 
         # add K = 2 heads (noun and verb prediction)
         # temporary hardcoding
         pool_size=[
-            [4, 7, 7]
+            # [4, 7, 7]
+            [cfg.DATA.NUM_FRAMES // 8, 7, 7]
         ]
 
         # temporary hardcoding
@@ -83,7 +84,7 @@ if __name__ == "__main__":
 
     # load cfg
     args = parse_args()
-    args.cfg_file = "../../../configs/EPIC-KITCHENS/R2PLUS1D/32x112x112_R18_K400_LR0.0025.yaml"
+    args.cfg_file = "../../../configs/EPIC-KITCHENS/R2PLUS1D/32x112x112_R18_scratch_LR0.0025.yaml"
     cfg = load_config(args)
 
     # load model
