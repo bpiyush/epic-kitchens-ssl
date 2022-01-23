@@ -53,8 +53,11 @@ SOLVER:
 MODEL:
   NUM_CLASSES: [97, 300]
   ARCH: r2plus1d_18
-  MODEL_NAME: PretextContrast
-  CKPT: /var/scratch/fmthoker/ssl_benchmark/checkpoints/PRETEXT_CONTRAST/Kinetics/pretext_checkpoint/pcl_r2p1d_res_ssl.pt
+  MODEL_NAME: RSPNet
+  # CKPT: /var/scratch/pbagad/AVID-CMA_Refactored/checkpoints/RSPNET/Kinetics/pretext_checkpoint/model_best_r21d_200epoch.pth.tar
+  # CKPT: /home/pbagad/projects/video-ssl-benchmark/checkpoints/RSPNET_snellius/Kinetics/pretext_checkpoint/snellius_checkpoint_epoch_200.pth.tar
+  CKPT: /var/scratch/fmthoker/ssl_benchmark/checkpoints/RSPNET_snellius/Kinetics/pretext_checkpoint/snellius_checkpoint_epoch_200.pth.tar
+  FREEZE_BACKBONE: True
   LOSS_FUNC: cross_entropy
   DROPOUT_RATE: 0.5
 TEST:
