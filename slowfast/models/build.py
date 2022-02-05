@@ -6,8 +6,18 @@
 import torch
 from fvcore.common.registry import Registry
 
+
 from slowfast.models.r2plus1d import R2Plus1D
 from slowfast.models.gdt import GDTBase
+from slowfast.models.ctp import CTP
+from slowfast.models.videomoco import VideoMoCo
+from slowfast.models.pretext_contrast import PretextContrast
+from slowfast.models.tclr import TCLR
+from slowfast.models.selavi import SELAVI
+from slowfast.models.avid_cma import AVID_CMA
+from slowfast.models.rspnet import RSPNet
+from slowfast.models.coclr import CoCLR
+
 
 MODEL_REGISTRY = Registry("MODEL")
 MODEL_REGISTRY.__doc__ = """
@@ -17,9 +27,16 @@ The registered object will be called with `obj(cfg)`.
 The call should return a `torch.nn.Module` object.
 """
 
-
+MODEL_REGISTRY._do_register("CTP", CTP)
 MODEL_REGISTRY._do_register("R2Plus1D", R2Plus1D)
 MODEL_REGISTRY._do_register("GDTBase", GDTBase)
+MODEL_REGISTRY._do_register("VideoMoCo", VideoMoCo)
+MODEL_REGISTRY._do_register("PretextContrast", PretextContrast)
+MODEL_REGISTRY._do_register("TCLR", TCLR)
+MODEL_REGISTRY._do_register("SELAVI", SELAVI)
+MODEL_REGISTRY._do_register("AVID_CMA", AVID_CMA)
+MODEL_REGISTRY._do_register("RSPNet", RSPNet)
+MODEL_REGISTRY._do_register("CoCLR", CoCLR)
 
 
 def build_model(cfg):

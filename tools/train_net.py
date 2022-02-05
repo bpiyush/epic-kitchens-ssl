@@ -417,6 +417,13 @@ def train(cfg):
         train_loader = loader.construct_loader(cfg, "train+val")
         val_loader = loader.construct_loader(cfg, "val")
 
+    # dataset = train_loader.dataset
+    # print("dataset:", type(dataset[0][0]), len(dataset[0][0]), dataset[0][0][0].shape)
+    # exit()
+    # from IPython import embed; embed()
+
+    # print(f"Frames: {dataset[0][0].shape}")
+
     # Create meters.
     if cfg.DETECTION.ENABLE:
         train_meter = AVAMeter(len(train_loader), cfg, mode="train")
