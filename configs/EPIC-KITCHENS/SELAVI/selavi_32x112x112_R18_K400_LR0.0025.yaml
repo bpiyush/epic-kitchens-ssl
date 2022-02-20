@@ -56,7 +56,8 @@ MODEL:
   # CHECK
   ARCH: r2plus1d_18
   MODEL_NAME: SELAVI
-  CKPT: /var/scratch/pbagad/projects/ssl_benchmark/checkpoints/SELAVI/Kinetics/pretext_checkpoint/selavi_kinetics.pth
+  # CKPT: /var/scratch/pbagad/projects/ssl_benchmark/checkpoints/SELAVI/Kinetics/pretext_checkpoint/selavi_kinetics.pth
+  CKPT: /home/pbagad/models/checkpoints_pretraining/selavi/selavi_kinetics.pth
   LOSS_FUNC: cross_entropy
   DROPOUT_RATE: 0.5
 TEST:

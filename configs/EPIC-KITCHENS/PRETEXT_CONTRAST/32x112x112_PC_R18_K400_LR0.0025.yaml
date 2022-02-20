@@ -54,7 +54,8 @@ MODEL:
   NUM_CLASSES: [97, 300]
   ARCH: r2plus1d_18
   MODEL_NAME: PretextContrast
-  CKPT: /var/scratch/fmthoker/ssl_benchmark/checkpoints/PRETEXT_CONTRAST/Kinetics/pretext_checkpoint/pcl_r2p1d_res_ssl.pt
+  # CKPT: /var/scratch/fmthoker/ssl_benchmark/checkpoints/PRETEXT_CONTRAST/Kinetics/pretext_checkpoint/pcl_r2p1d_res_ssl.pt
+  CKPT: /home/pbagad/projects/video-ssl-benchmark/checkpoints/PRETEXT_CONTRAST/Kinetics/pretext_checkpoint/pcl_r2p1d_res_ssl.pt
   LOSS_FUNC: cross_entropy
   DROPOUT_RATE: 0.5
 TEST:

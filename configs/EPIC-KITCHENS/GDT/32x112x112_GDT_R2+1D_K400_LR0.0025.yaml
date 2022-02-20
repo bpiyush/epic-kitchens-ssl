@@ -49,7 +49,8 @@ MODEL:
   NUM_CLASSES: [97, 300]
   ARCH: r2plus1d_18
   MODEL_NAME: GDTBase
-  CKPT: /var/scratch/pbagad/AVID-CMA_Refactored/checkpoints/GDT/Kinetics/pretext_checkpoint/gdt_K400.pth
+  # CKPT: /var/scratch/pbagad/AVID-CMA_Refactored/checkpoints/GDT/Kinetics/pretext_checkpoint/gdt_K400.pth
+  CKPT: /home/pbagad/models/checkpoints_pretraining/gdt/gdt_K400.pth
   LOSS_FUNC: cross_entropy
   DROPOUT_RATE: 0.5
 TEST:

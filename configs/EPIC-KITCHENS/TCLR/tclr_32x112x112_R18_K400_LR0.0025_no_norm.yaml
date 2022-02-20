@@ -58,7 +58,8 @@ MODEL:
   # CHECK
   ARCH: r2plus1d_18
   MODEL_NAME: TCLR
-  CKPT: /var/scratch/fmthoker/ssl_benchmark/checkpoints/TCLR/Kinetics/pretext_checkpoint/rpd18kin400.pth
+  # CKPT: /var/scratch/fmthoker/ssl_benchmark/checkpoints/TCLR/Kinetics/pretext_checkpoint/rpd18kin400.pth
+  CKPT: /home/pbagad/models/checkpoints_pretraining/tclr/rpd18kin400.pth
   LOSS_FUNC: cross_entropy
   DROPOUT_RATE: 0.5
 TEST:
