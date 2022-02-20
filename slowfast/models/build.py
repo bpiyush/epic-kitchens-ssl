@@ -17,6 +17,7 @@ from slowfast.models.selavi import SELAVI
 from slowfast.models.avid_cma import AVID_CMA
 from slowfast.models.rspnet import RSPNet
 from slowfast.models.coclr import CoCLR
+from slowfast.models.moco import MOCO
 
 
 MODEL_REGISTRY = Registry("MODEL")
@@ -37,6 +38,7 @@ MODEL_REGISTRY._do_register("SELAVI", SELAVI)
 MODEL_REGISTRY._do_register("AVID_CMA", AVID_CMA)
 MODEL_REGISTRY._do_register("RSPNet", RSPNet)
 MODEL_REGISTRY._do_register("CoCLR", CoCLR)
+MODEL_REGISTRY._do_register("MOCO", MOCO)
 
 
 def build_model(cfg):
