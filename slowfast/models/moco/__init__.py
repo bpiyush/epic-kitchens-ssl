@@ -37,7 +37,7 @@ class MOCO(nn.Module):
 
         # define the encoder
         self.encoder = video_resnet.__dict__[cfg.MODEL.ARCH](pretrained=False)
-        self.init_weights(self.encoder, cfg.MODEL.CKPT)
+        self.init_weights(cfg.MODEL.CKPT)
 
         # add K = 2 heads (noun and verb prediction)
         # temporary hardcoding
@@ -78,7 +78,7 @@ class MOCO(nn.Module):
                     # shutdown running statistics update in frozen mode
                     m.eval()
 
-    def init_weights(self, encoder, ckpt_path):
+    def init_weights(self, ckpt_path):
         # load from pre-trained, before DistributedDataParallel constructor
         if isfile(ckpt_path):
             print("=> loading checkpoint '{}'".format(ckpt_path))
@@ -95,7 +95,7 @@ class MOCO(nn.Module):
                 del state_dict[k]
 
             #args.start_epoch = 0
-            msg = encoder.load_state_dict(state_dict, strict=False)
+            msg = self.encoder.load_state_dict(state_dict, strict=False)
             print(msg)
             assert set(msg.missing_keys) == {"fc.weight", "fc.bias"}
 
