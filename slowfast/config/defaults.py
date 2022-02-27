@@ -266,6 +266,9 @@ _C.DATA.TRAIN_CROP_SIZE = 224
 # The spatial crop size for testing.
 _C.DATA.TEST_CROP_SIZE = 256
 
+# Number of samples (videos) to use
+_C.DATA.NUM_SAMPLES = None
+
 
 # ---------------------------------------------------------------------------- #
 # Optimizer options

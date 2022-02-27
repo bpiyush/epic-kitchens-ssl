@@ -5,17 +5,17 @@ import torch.utils.data
 
 import slowfast.utils.logging as logging
 
-from .build import DATASET_REGISTRY
-from .epickitchens_record import EpicKitchensVideoRecord
+from slowfast.datasets.build import DATASET_REGISTRY
+from slowfast.datasets.epickitchens_record import EpicKitchensVideoRecord
 
-from . import transform as transform
-from . import utils as utils
-from .frame_loader import pack_frames_to_video_clip
+from slowfast.datasets import transform as transform
+from slowfast.datasets import utils as utils
+from slowfast.datasets.frame_loader import pack_frames_to_video_clip
 
 logger = logging.get_logger(__name__)
 
 
-@DATASET_REGISTRY.register()
+# @DATASET_REGISTRY.register()
 class Epickitchens(torch.utils.data.Dataset):
 
     def __init__(self, cfg, mode):
@@ -84,6 +84,23 @@ class Epickitchens(torch.utils.data.Dataset):
                 len(self._video_records), path_annotations_pickle
             )
         )
+        
+        # filter N number of samples
+        num_samples = self.cfg.DATA.get("NUM_SAMPLES", None)
+        if num_samples is not None:
+            video_names = [v.metadata["narration_id"] for v in self._video_records]
+            video_labels = [v.label["verb"] for v in self._video_records]
+
+            subset_indices = utils.get_subset_data(
+                video_names, video_labels, num_samples, seed=cfg.RNG_SEED,
+            )
+            self._video_records = [
+                self._video_records[i] for i in subset_indices
+            ]
+            self._spatial_temporal_idx = [
+                self._spatial_temporal_idx[i] for i in subset_indices
+            ]
+            logger.info("Filtered {} samples".format(len(self._video_records)))
 
     def __getitem__(self, index):
         """
@@ -223,5 +240,15 @@ if __name__ == "__main__":
     args.cfg_file = cfg_path
     cfg = load_config(args)
     
+    cfg.EPICKITCHENS.VISUAL_DATA_DIR = dataset_dir
+    cfg.EPICKITCHENS.ANNOTATIONS_DIR = annotations_dir
+    cfg.DATA.NUM_SAMPLES = 1000
+    
     dataset = Epickitchens(cfg, "train")
-    import ipdb; ipdb.set_trace()
+    
+    frames, label, index, metadata = dataset[0]
+    assert len(frames) == 1
+    assert frames[0].shape == torch.Size([3, 8, 112, 112])
+    assert label == {'verb': 0, 'noun': 58}
+    assert metadata == {'narration_id': 'P22_15_137'}
+

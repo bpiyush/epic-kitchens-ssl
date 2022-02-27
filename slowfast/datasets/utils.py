@@ -3,6 +3,7 @@
 import logging
 import numpy as np
 import time
+import math
 import torch
 
 import cv2
@@ -91,3 +92,32 @@ def pack_pathway_output(cfg, frames):
             )
         )
     return frame_list
+
+
+def get_subset_data(video_names, annotations, num_of_examples, seed, verbose=False):
+    """Selects a subset of the data."""
+    
+    examples_per_class =  int(math.ceil(num_of_examples / len(set(annotations))))
+    print("original data length", len(video_names) )
+    print("examples per class", examples_per_class)
+    print("seed is", seed)
+
+    random_state = np.random.default_rng(seed)
+
+    annotations = np.array(annotations)
+    video_names = np.array(video_names)
+
+    subset_indices = []
+    for class_label in sorted(set(annotations)):        
+        
+        subset_indices_for_class = np.where(annotations == class_label)[0]
+        num_to_sample = min(examples_per_class, len(subset_indices_for_class))
+
+        subset_indices_for_class = random_state.choice(subset_indices_for_class, num_to_sample, replace=False)
+        if verbose:
+            print(f"subset_indices_for_class ({class_label})", subset_indices_for_class)
+        subset_indices.extend(subset_indices_for_class)
+
+    print("subset data length", len(subset_indices))
+
+    return subset_indices
