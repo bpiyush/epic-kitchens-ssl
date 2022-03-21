@@ -15,7 +15,7 @@ from slowfast.datasets.frame_loader import pack_frames_to_video_clip
 logger = logging.get_logger(__name__)
 
 
-# @DATASET_REGISTRY.register()
+@DATASET_REGISTRY.register()
 class Epickitchens(torch.utils.data.Dataset):
 
     def __init__(self, cfg, mode):
@@ -87,12 +87,12 @@ class Epickitchens(torch.utils.data.Dataset):
         
         # filter N number of samples
         num_samples = self.cfg.DATA.get("NUM_SAMPLES", None)
-        if num_samples is not None:
+        if num_samples is not None and self.mode == "train":
             video_names = [v.metadata["narration_id"] for v in self._video_records]
             video_labels = [v.label["verb"] for v in self._video_records]
 
             subset_indices = utils.get_subset_data(
-                video_names, video_labels, num_samples, seed=cfg.RNG_SEED,
+                video_names, video_labels, num_samples, seed=self.cfg.RNG_SEED,
             )
             self._video_records = [
                 self._video_records[i] for i in subset_indices
