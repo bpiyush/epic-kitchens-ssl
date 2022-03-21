@@ -233,8 +233,10 @@ if __name__ == "__main__":
     from tools.run_net import parse_args, load_config
 
     cfg_path = "../../configs/EPIC-KITCHENS/R2PLUS1D/8x112x112_R18_K400_LR0.0025_uniq_frames_1.yaml"
-    dataset_dir = "/ssd/pbagad/datasets/EPIC-KITCHENS-100/EPIC-KITCHENS/"
-    annotations_dir = "/ssd/pbagad/datasets/EPIC-KITCHENS-100/annotations/"
+    # dataset_dir = "/ssd/pbagad/datasets/EPIC-KITCHENS-100/EPIC-KITCHENS/"
+    # annotations_dir = "/ssd/pbagad/datasets/EPIC-KITCHENS-100/annotations/"
+    dataset_dir = "/var/scratch/pbagad/EPIC-KITCHENS/"
+    annotations_dir = "/var/scratch/pbagad/datasets/EPIC-KITCHENS-100/annotations/"
 
     args = parse_args()
     args.cfg_file = cfg_path
