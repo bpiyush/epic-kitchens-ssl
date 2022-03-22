@@ -91,8 +91,8 @@ if __name__ == "__main__":
     parser.add_argument(
         "--key",
         "-k",
-        help="Key to show results for. For e.g., `verb_top5_acc`",
-        default="verb_top5_acc",
+        help="Key to show results for. For e.g., `verb_top1_acc`",
+        default="verb_top1_acc",
         type=str,
     )
     parser.add_argument(
