@@ -95,19 +95,29 @@ if __name__ == "__main__":
         default="verb_top5_acc",
         type=str,
     )
+    parser.add_argument(
+        "--search_prefix",
+        "-s",
+        help="Prefix in expt folder name.",
+        required=True,
+        type=str,
+    )
+
     args = parser.parse_args()
     
     model = (args.model).upper()
-    model_outdirs = glob(join(args.outdir, model + "--*_n_samples_*_*"))
-    model_base_outdir = model_outdirs[0]
-    model_base_outdir = re.sub(r"diva_n_samples_\d+_", "", model_base_outdir)
+    model_outdirs = glob(join(args.outdir, model + "--*n_samples_*_*"))
 
-    scratch = "scratch" in model_outdirs[0]
+    model_base_outdir = model_outdirs[0]
+    model_base_outdir = re.sub(args.search_prefix + "n_samples_\d+_", "", model_base_outdir)
+
+    scratch = "_scratch_" in model_outdirs[0]
+    print(scratch, model_outdirs[0])
     val_log_files = [join(x, "logs/val_logs_checkpoint_best.pyth.txt") for x in model_outdirs]
     val_log_files = natsorted(val_log_files)
     val_log_files += [join(model_base_outdir, "logs/val_logs_checkpoint_best.pyth.txt")]
         
-    pattern =  "_n_samples_\d{4,5}_"
+    pattern =  args.search_prefix + "n_samples_\d{4,5}_"
     num_samples = [re.search(pattern, x).group() for x in model_outdirs]
     num_samples = natsorted([int(x.split("_")[-2]) for x in num_samples])
     num_samples += ["Full"]
