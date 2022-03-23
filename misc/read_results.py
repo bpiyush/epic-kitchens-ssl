@@ -102,11 +102,20 @@ if __name__ == "__main__":
         required=True,
         type=str,
     )
+    parser.add_argument(
+        "--scratch",
+        help="R2PLUS1D trained from scratch.",
+        action=argparse.BooleanOptionalAction,
+    )
 
     args = parser.parse_args()
     
     model = (args.model).upper()
     model_outdirs = glob(join(args.outdir, model + "--*n_samples_*_*"))
+
+    if args.scratch:
+        model_outdirs = [ x for x in model_outdirs if "_scratch_" in x ]
+    import ipdb; ipdb.set_trace()
 
     model_base_outdir = model_outdirs[0]
     model_base_outdir = re.sub(args.search_prefix + "n_samples_\d+_", "", model_base_outdir)
