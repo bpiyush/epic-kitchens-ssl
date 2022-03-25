@@ -30,7 +30,7 @@ if [ "$epoch" ==  ""  ]
 then
     ckpt="checkpoint_best.pyth"
 else
-    file=$(printf %06d $epoch).pyth
+    file=$(printf %05d $epoch).pyth
     ckpt="checkpoint_epoch_$file"
 fi
 
