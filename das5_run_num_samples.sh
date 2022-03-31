@@ -20,8 +20,8 @@ do
     ls $cfg
     echo ""
 
-    # bash das5_train.sh -c $cfg
-    # bash das5_val.sh -c $cfg
+    bash das5_train.sh -c $cfg
+    bash das5_val.sh -c $cfg
 
     echo "-------------------------- xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx --------------------"
     echo ""
